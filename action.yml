@@ -1,0 +1,22 @@
+name: "Feedz.io Publish"
+description: "Github action for publishing packages to Feedz.io"
+inputs:
+  API_KEY:
+    description: "The API key to use while publishing"
+    required: false
+  ORG_SLUG:
+    description: "The slug of the organization to publish to"
+    required: false
+  REPO_SLUG:
+    description: "The slug of the repository to publish to"
+    required: false
+  PACKAGE_TYPE:
+    description: "What kind of package to publish, please use one of [nugt, nugetv2, choco, generic, npm]"
+    required: false
+runs:
+  using: composite
+  steps:
+    - run: ${{ github.action_path }}/feedz.install.sh
+      shell: bash
+    - run: node ${{ github.action_path }}/index.js
+      shell: bash
